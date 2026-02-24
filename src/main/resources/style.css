@@ -1,0 +1,309 @@
+/* Import Google Fonts for modern typography */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #09090b, #000000, #030712);
+    /* Deep void background */
+    -fx-font-family: 'Outfit', 'Segoe UI', sans-serif;
+    -fx-font-size: 14px;
+}
+
+.label {
+    -fx-text-fill: #e2e8f0;
+}
+
+/* App Titles */
+.app-title {
+    -fx-font-size: 34px;
+    -fx-font-weight: 800;
+    -fx-text-fill: linear-gradient(to right, #06b6d4, #3b82f6, #8b5cf6);
+    /* Cyan to purple gradient */
+    -fx-effect: dropshadow(two-pass-box, rgba(6, 182, 212, 0.8), 20, 0, 0, 0);
+}
+
+.app-subtitle {
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #94a3b8;
+    -fx-padding: 0 0 7 0;
+    -fx-letter-spacing: 2px;
+    -fx-text-transform: uppercase;
+}
+
+/* Glassmorphism Panel */
+.panel {
+    -fx-background-color: linear-gradient(to bottom right, rgba(15, 23, 42, 0.6), rgba(9, 9, 11, 0.8));
+    -fx-background-radius: 20;
+    -fx-border-color: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    -fx-border-radius: 20;
+    -fx-border-width: 1.5;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 25, 0, 0, 15);
+}
+
+.panel-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #06b6d4;
+    -fx-padding: 0 0 20 0;
+    -fx-effect: dropshadow(two-pass-box, rgba(6, 182, 212, 0.4), 8, 0, 0, 0);
+    -fx-letter-spacing: 1px;
+}
+
+/* Tabs */
+.main-tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.main-tab-pane .tab {
+    -fx-background-color: rgba(15, 23, 42, 0.6);
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 10 30;
+    -fx-border-color: rgba(255, 255, 255, 0.05);
+    -fx-border-width: 1 1 0 1;
+    -fx-border-radius: 8 8 0 0;
+    -fx-cursor: hand;
+}
+
+.main-tab-pane .tab:selected {
+    -fx-background-color: rgba(6, 182, 212, 0.15);
+    -fx-border-color: #06b6d4;
+    -fx-border-width: 2 1 0 1;
+}
+
+.main-tab-pane .tab .tab-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+}
+
+.main-tab-pane .tab:selected .tab-label {
+    -fx-text-fill: #06b6d4;
+    -fx-effect: dropshadow(two-pass-box, rgba(6, 182, 212, 0.5), 5, 0, 0, 0);
+}
+
+/* TableView Styling */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+    -fx-border-radius: 20;
+    -fx-border-width: 1.5;
+    -fx-padding: 0;
+    -fx-background-radius: 20;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: rgba(15, 23, 42, 0.95);
+    -fx-background-radius: 19 19 0 0;
+    -fx-padding: 8 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 50px;
+    -fx-border-width: 0;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-weight: 800;
+    -fx-font-size: 13px;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10;
+    -fx-text-transform: uppercase;
+    -fx-letter-spacing: 1.5px;
+}
+
+.table-row-cell {
+    -fx-background-color: rgba(15, 23, 42, 0.3);
+    -fx-cell-size: 50px;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: rgba(255, 255, 255, 0.03);
+    -fx-transition: -fx-background-color 0.2s, -fx-border-color 0.2s;
+    /* Note: JavaFX css transitions are limited, but we can structure for hover states */
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgba(6, 182, 212, 0.12);
+    -fx-cursor: hand;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: linear-gradient(to right, rgba(6, 182, 212, 0.25), rgba(6, 182, 212, 0.05));
+    -fx-border-color: #06b6d4;
+    -fx-border-width: 0 0 0 4;
+}
+
+.table-cell {
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 14px;
+    -fx-padding: 0 10;
+    -fx-font-family: 'JetBrains Mono', monospace;
+    -fx-alignment: center-left;
+}
+
+.table-row-cell:safe .table-cell {
+    -fx-text-fill: #4ade80;
+}
+
+.table-row-cell:suspicious .table-cell {
+    -fx-text-fill: #fbbf24;
+}
+
+.table-row-cell:threat .table-cell {
+    -fx-text-fill: #f43f5e;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell:threat {
+    -fx-background-color: rgba(244, 63, 94, 0.08);
+}
+
+.table-row-cell:threat:selected {
+    -fx-background-color: linear-gradient(to right, rgba(244, 63, 94, 0.25), rgba(244, 63, 94, 0.05));
+    -fx-border-color: #f43f5e;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* Scrollbars */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: rgba(255, 255, 255, 0.02);
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 10;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #06b6d4;
+    -fx-effect: dropshadow(three-pass-box, rgba(6, 182, 212, 0.6), 5, 0, 0, 0);
+}
+
+/* ScrollPane wrapper */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane>.viewport {
+    -fx-background-color: transparent;
+}
+
+/* Premium Buttons */
+.button {
+    -fx-background-color: linear-gradient(to right, #0ea5e9, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-font-weight: 700;
+    -fx-font-family: 'Outfit';
+    -fx-cursor: hand;
+    -fx-padding: 10 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(14, 165, 233, 0.4), 15, 0, 0, 5);
+    -fx-border-width: 1;
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 12;
+    -fx-font-size: 13px;
+    -fx-letter-spacing: 0.5px;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #38bdf8, #3b82f6);
+    -fx-effect: dropshadow(three-pass-box, rgba(56, 189, 248, 0.8), 25, 0, 0, 0);
+    -fx-translate-y: -2px;
+    /* Slight lift effect */
+}
+
+.button:pressed {
+    -fx-background-color: #0284c7;
+    -fx-effect: dropshadow(three-pass-box, rgba(2, 132, 199, 0.5), 5, 0, 0, 0);
+    -fx-translate-y: 1px;
+}
+
+.button:disabled {
+    -fx-background-color: rgba(51, 65, 85, 0.5);
+    -fx-text-fill: #94a3b8;
+    -fx-border-color: transparent;
+    -fx-effect: none;
+    -fx-cursor: default;
+    -fx-translate-y: 0;
+}
+
+.button-danger {
+    -fx-background-color: linear-gradient(to right, #e11d48, #9f1239);
+    -fx-effect: dropshadow(three-pass-box, rgba(225, 29, 72, 0.4), 15, 0, 0, 5);
+}
+
+.button-danger:hover {
+    -fx-background-color: linear-gradient(to right, #f43f5e, #be123c);
+    -fx-effect: dropshadow(three-pass-box, rgba(244, 63, 94, 0.8), 25, 0, 0, 0);
+}
+
+.button-warning {
+    -fx-background-color: linear-gradient(to right, #f59e0b, #d97706) !important;
+    -fx-text-fill: #fff !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(245, 158, 11, 0.4), 15, 0, 0, 5) !important;
+}
+
+.button-warning:hover {
+    -fx-background-color: linear-gradient(to right, #fbbf24, #f59e0b) !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(251, 191, 36, 0.8), 25, 0, 0, 0) !important;
+}
+
+/* Alerts Panel Styles */
+.alert-box {
+    -fx-background-color: rgba(30, 41, 59, 0.5);
+    -fx-background-radius: 12;
+    -fx-padding: 18;
+    -fx-border-color: rgba(255, 255, 255, 0.08);
+    -fx-border-radius: 12;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 5);
+}
+
+.alert-box:hover {
+    -fx-background-color: rgba(51, 65, 85, 0.6);
+    -fx-border-color: rgba(255, 255, 255, 0.2);
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.5), 15, 0, 0, 8);
+}
+
+.alert-box-threat {
+    -fx-background-color: linear-gradient(to right, rgba(225, 29, 72, 0.15), rgba(225, 29, 72, 0.05));
+    -fx-border-color: rgba(244, 63, 94, 0.6);
+    -fx-effect: dropshadow(three-pass-box, rgba(244, 63, 94, 0.5), 20, 0, 0, 0);
+}
+
+.alert-box-threat:hover {
+    -fx-background-color: linear-gradient(to right, rgba(244, 63, 94, 0.25), rgba(244, 63, 94, 0.1));
+    -fx-border-color: rgba(251, 113, 133, 1.0);
+    -fx-effect: dropshadow(three-pass-box, rgba(251, 113, 133, 0.8), 25, 0, 0, 0);
+}
+
+/* Bottom status bar styling */
+.status-bar {
+    -fx-background-color: rgba(3, 7, 18, 0.98);
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 1 0 0 0;
+    -fx-padding: 16 30;
+    -fx-effect: dropshadow(two-pass-box, rgba(0, 0, 0, 0.8), 20, 0, 0, -5);
+}
