@@ -41,15 +41,15 @@ public class ConnectionDetailsPanel extends VBox {
         this.controller = controller;
         this.firewall = controller.getFirewall();
         getStyleClass().add("panel");
-        setSpacing(15);
-        setPrefHeight(350);
+        setSpacing(10);
+        setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         Label title = new Label("Connection Details");
         title.getStyleClass().add("panel-title");
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
-        grid.setVgap(8);
+        grid.setVgap(5);
 
         addDetailRow(grid, 0, "Process:", lblProcess);
         addDetailRow(grid, 1, "PID:", lblPid);

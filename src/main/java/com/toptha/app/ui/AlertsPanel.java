@@ -7,6 +7,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 import java.time.format.DateTimeFormatter;
 
@@ -25,10 +27,13 @@ public class AlertsPanel extends VBox {
 
         alertsBox = new VBox(5);
         alertsBox.setPadding(new Insets(5));
+        alertsBox.setMaxHeight(Double.MAX_VALUE);
 
         ScrollPane scrollPane = new ScrollPane(alertsBox);
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
+        scrollPane.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(scrollPane, javafx.scene.layout.Priority.ALWAYS);
 
         getChildren().addAll(title, scrollPane);
 
@@ -50,14 +55,14 @@ public class AlertsPanel extends VBox {
         VBox box = new VBox(2);
         box.getStyleClass().add("alert-box");
 
-        Label timeLbl = new Label(alert.getTimestamp().format(TIME_FORMAT) + " - " + alert.getType());
+        Text timeLbl = new Text(alert.getTimestamp().format(TIME_FORMAT) + " - " + alert.getType());
         timeLbl.setStyle(
-                "-fx-text-fill: #fbbf24; -fx-font-size: 13px; -fx-font-weight: 600; -fx-font-family: 'JetBrains Mono';");
+                "-fx-fill: #fbbf24; -fx-font-size: 13px; -fx-font-weight: 600; -fx-font-family: 'JetBrains Mono';");
 
         if ("THREAT".equals(alert.getType())) {
             box.getStyleClass().add("alert-box-threat");
             timeLbl.setStyle(
-                    "-fx-text-fill: #fca5a5; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono';");
+                    "-fx-fill: #fca5a5; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono';");
 
             // Pulsing animation for Threat boxes to make it obvious
             javafx.scene.effect.DropShadow glow = new javafx.scene.effect.DropShadow();
@@ -80,11 +85,15 @@ public class AlertsPanel extends VBox {
             pulse.play();
         }
 
-        Label msg = new Label(alert.getMessage());
-        msg.setWrapText(true);
-        msg.setStyle("-fx-text-fill: #e5e7eb; -fx-font-size: 13px;");
+        Text msg = new Text(alert.getMessage());
+        msg.setStyle("-fx-fill: #e5e7eb; -fx-font-size: 13px; -fx-font-family: 'Outfit';");
 
-        box.getChildren().addAll(timeLbl, msg);
+        TextFlow msgFlow = new TextFlow(msg);
+        msgFlow.setMaxWidth(Double.MAX_VALUE);
+        msgFlow.prefWidthProperty().bind(alertsBox.widthProperty().subtract(45));
+
+        box.getChildren().addAll(timeLbl, msgFlow);
+        box.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         // Initial state for animation
         box.setOpacity(0);

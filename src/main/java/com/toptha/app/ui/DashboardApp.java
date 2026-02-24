@@ -51,7 +51,7 @@ public class DashboardApp extends Application {
 
         liveMonitorPane.setCenter(connectionsTable);
 
-        VBox rightBox = new VBox(20);
+        VBox rightBox = new VBox(15);
         rightBox.getChildren().addAll(alertsPanel, detailsPanel);
         VBox.setVgrow(alertsPanel, Priority.ALWAYS);
         rightBox.setPrefWidth(380);
@@ -96,7 +96,7 @@ public class DashboardApp extends Application {
         root.setBottom(statusBar);
         BorderPane.setMargin(statusBar, new Insets(20, -20, -20, -20)); // To make status bar stretch to bottom edges
 
-        Scene scene = new Scene(root, 1280, 850);
+        Scene scene = new Scene(root, 1280, 950);
 
         String css = getClass().getResource("/style.css").toExternalForm();
         scene.getStylesheets().add(css);

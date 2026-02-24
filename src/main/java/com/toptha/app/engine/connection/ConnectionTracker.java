@@ -46,6 +46,11 @@ public class ConnectionTracker {
 
         boolean isUpload = isLocal(event.srcIp());
 
+        // Ignore common noisy background broadcast/multicast traffic
+        if (isIgnoredBroadcast(remoteIp, remotePort)) {
+            return;
+        }
+
         String key = event.protocol() + ":" + localIp + ":" + localPort + "->" + remoteIp + ":" + remotePort;
 
         Connection conn = connectionMap.computeIfAbsent(key, k -> {
@@ -61,7 +66,7 @@ public class ConnectionTracker {
             ThreatResult result = detectionEngine.evaluate(newConn);
             newConn.setThreatLevel(result.level());
 
-            Platform.runLater(() -> uiList.add(newConn));
+            Platform.runLater(() -> uiList.add(0, newConn));
 
             if (dbProvider != null) {
                 dbProvider.insertConnection(newConn);
@@ -99,9 +104,19 @@ public class ConnectionTracker {
         return ip.startsWith("192.168.") || ip.startsWith("10.") || ip.startsWith("127.") || ip.startsWith("172.");
     }
 
+    private boolean isIgnoredBroadcast(String ip, int port) {
+        // mDNS, SSDP, LLMNR, NetBIOS broadcast IPs
+        if (ip.equals("224.0.0.251") || ip.equals("239.255.255.250") || ip.equals("224.0.0.252")
+                || ip.endsWith(".255")) {
+            return true;
+        }
+        // Common noisy UDP broadcast ports
+        return port == 5353 || port == 1900 || port == 5355 || port == 137 || port == 138;
+    }
+
     private void triggerAlert(Connection conn, String reason) {
         String msg = String.format("Threat detected on %s:%d -> %s. Reason: %s", conn.getProtocol(), conn.getDstPort(),
-                conn.getProcess(), reason);
+                conn.getDstIp(), reason);
         Alert alert = new Alert(LocalDateTime.now(), "THREAT", msg, "None");
 
         if (alertListener != null) {

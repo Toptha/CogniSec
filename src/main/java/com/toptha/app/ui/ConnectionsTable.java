@@ -47,7 +47,9 @@ public class ConnectionsTable extends TableView<Connection> {
         protoCol.setPrefWidth(120);
 
         TableColumn<Connection, String> bytesCol = new TableColumn<>("Traffic");
-        bytesCol.setCellValueFactory(data1 -> new SimpleStringProperty(formatBytes(data1.getValue().getTotalBytes())));
+        bytesCol.setCellValueFactory(data1 -> javafx.beans.binding.Bindings.createStringBinding(
+                () -> formatBytes(data1.getValue().getTotalBytes()),
+                data1.getValue().bytesSentProperty(), data1.getValue().bytesReceivedProperty()));
         bytesCol.setPrefWidth(120);
 
         TableColumn<Connection, ThreatLevel> threatCol = new TableColumn<>("Threat Level");
