@@ -91,7 +91,7 @@ public class ConnectionDetailsPanel extends VBox {
         });
 
         btnSuspendProc.getStyleClass().addAll("button", "button-warning");
-        btnSuspendProc.setStyle("-fx-background-color: #eab308; -fx-text-fill: #111827;");
+        btnSuspendProc.setStyle("-fx-background-color: #f59e0b; -fx-text-fill: #fff;");
         btnSuspendProc.setOnAction(e -> {
             if (currentConn != null && currentConn.getProcess() != null) {
                 firewall.suspendProcess(currentConn.getProcess().getPid());
@@ -130,8 +130,8 @@ public class ConnectionDetailsPanel extends VBox {
 
     private void addDetailRow(GridPane grid, int row, String name, Label valueLabel) {
         Label nameLbl = new Label(name);
-        nameLbl.setStyle("-fx-text-fill: #9ca3af; -fx-font-weight: bold;");
-        valueLabel.setStyle("-fx-text-fill: #e5e7eb;");
+        nameLbl.setStyle("-fx-text-fill: #a1a1aa; -fx-font-weight: bold;");
+        valueLabel.setStyle("-fx-text-fill: #f4f4f5;");
         valueLabel.setWrapText(true);
 
         grid.add(nameLbl, 0, row);
@@ -169,13 +169,13 @@ public class ConnectionDetailsPanel extends VBox {
         lblCountry.setText(conn.getCountry());
 
         lblAbuseScore.setText("-");
-        lblAbuseScore.setStyle("-fx-text-fill: #e5e7eb;");
+        lblAbuseScore.setStyle("-fx-text-fill: #f4f4f5;");
         if (!conn.getDstIp().equals("127.0.0.1") && !conn.getDstIp().startsWith("192.168.")) {
             if (conn.getAbuseScore() != -1) {
                 applyScoreStyle(conn.getAbuseScore());
             } else {
                 lblAbuseScore.setText("Scanning API...");
-                lblAbuseScore.setStyle("-fx-text-fill: #94a3b8; -fx-font-style: italic;");
+                lblAbuseScore.setStyle("-fx-text-fill: #a1a1aa; -fx-font-style: italic;");
                 // Wait, ThreatDetectionEngine doesn't expose it. We need to add it to
                 // AppController.
                 controller.getIntelService().getAbuseConfidenceScore(conn.getDstIp()).thenAccept(score -> {
@@ -189,7 +189,7 @@ public class ConnectionDetailsPanel extends VBox {
             }
         } else {
             lblAbuseScore.setText("Local / Safe");
-            lblAbuseScore.setStyle("-fx-text-fill: #4ade80; -fx-font-weight: bold;");
+            lblAbuseScore.setStyle("-fx-text-fill: #22c55e; -fx-font-weight: bold;");
         }
 
         lblPort.setText(conn.getDstPort() + " (" + conn.getProtocol() + ")");
@@ -244,16 +244,15 @@ public class ConnectionDetailsPanel extends VBox {
     private void applyScoreStyle(int score) {
         if (score == -1) {
             lblAbuseScore.setText("API Error / Rate Limited");
-            lblAbuseScore.setStyle("-fx-text-fill: #fca5a5;");
+            lblAbuseScore.setStyle("-fx-text-fill: #ef4444;");
         } else {
             lblAbuseScore.setText(score + "% Confidence of Abuse");
             if (score == 0) {
-                lblAbuseScore.setStyle("-fx-text-fill: #4ade80; -fx-font-weight: bold;");
+                lblAbuseScore.setStyle("-fx-text-fill: #22c55e; -fx-font-weight: bold;");
             } else if (score < 50) {
-                lblAbuseScore.setStyle("-fx-text-fill: #fbbf24; -fx-font-weight: bold;");
+                lblAbuseScore.setStyle("-fx-text-fill: #f59e0b; -fx-font-weight: bold;");
             } else {
-                lblAbuseScore.setStyle(
-                        "-fx-text-fill: #f43f5e; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(244, 63, 94, 0.4), 10, 0, 0, 0);");
+                lblAbuseScore.setStyle("-fx-text-fill: #ef4444; -fx-font-weight: bold;");
             }
         }
     }

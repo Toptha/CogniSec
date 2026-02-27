@@ -38,7 +38,7 @@ public class HistoricalDashboardTab extends BorderPane {
         header.setSpacing(20);
 
         Label title = new Label("Historical Analysis");
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;");
+        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #f4f4f5;");
 
         Button btnRefresh = new Button("Refresh Data");
         btnRefresh.getStyleClass().add("button");

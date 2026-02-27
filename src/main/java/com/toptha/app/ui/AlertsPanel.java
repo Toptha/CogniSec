@@ -57,16 +57,16 @@ public class AlertsPanel extends VBox {
 
         Text timeLbl = new Text(alert.getTimestamp().format(TIME_FORMAT) + " - " + alert.getType());
         timeLbl.setStyle(
-                "-fx-fill: #fbbf24; -fx-font-size: 13px; -fx-font-weight: 600; -fx-font-family: 'JetBrains Mono';");
+                "-fx-fill: #f59e0b; -fx-font-size: 13px; -fx-font-weight: 600; -fx-font-family: 'JetBrains Mono';");
 
         if ("THREAT".equals(alert.getType())) {
             box.getStyleClass().add("alert-box-threat");
             timeLbl.setStyle(
-                    "-fx-fill: #fca5a5; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono';");
+                    "-fx-fill: #ef4444; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono';");
 
             // Pulsing animation for Threat boxes to make it obvious
             javafx.scene.effect.DropShadow glow = new javafx.scene.effect.DropShadow();
-            glow.setColor(javafx.scene.paint.Color.web("#f43f5e"));
+            glow.setColor(javafx.scene.paint.Color.web("#ef4444"));
             glow.setRadius(15);
             glow.setSpread(0.2);
             box.setEffect(glow);
@@ -75,18 +75,18 @@ public class AlertsPanel extends VBox {
                     new javafx.animation.KeyFrame(javafx.util.Duration.ZERO,
                             new javafx.animation.KeyValue(glow.radiusProperty(), 15),
                             new javafx.animation.KeyValue(glow.colorProperty(),
-                                    javafx.scene.paint.Color.web("#f43f5e", 0.5))),
+                                    javafx.scene.paint.Color.web("#ef4444", 0.5))),
                     new javafx.animation.KeyFrame(javafx.util.Duration.millis(800),
                             new javafx.animation.KeyValue(glow.radiusProperty(), 30),
                             new javafx.animation.KeyValue(glow.colorProperty(),
-                                    javafx.scene.paint.Color.web("#f43f5e", 0.9))));
+                                    javafx.scene.paint.Color.web("#ef4444", 0.9))));
             pulse.setAutoReverse(true);
             pulse.setCycleCount(javafx.animation.Animation.INDEFINITE);
             pulse.play();
         }
 
         Text msg = new Text(alert.getMessage());
-        msg.setStyle("-fx-fill: #e5e7eb; -fx-font-size: 13px; -fx-font-family: 'Outfit';");
+        msg.setStyle("-fx-fill: #d4d4d8; -fx-font-size: 13px; -fx-font-family: 'Inter';");
 
         TextFlow msgFlow = new TextFlow(msg);
         msgFlow.setMaxWidth(Double.MAX_VALUE);

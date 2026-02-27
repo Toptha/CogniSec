@@ -16,7 +16,7 @@ public class StatusBar extends HBox {
         setAlignment(javafx.geometry.Pos.CENTER_LEFT);
 
         lblStatus = new javafx.scene.control.Label("Initializing capture engine...");
-        lblStatus.setStyle("-fx-text-fill: #34d399; -fx-font-size: 14px; -fx-font-weight: bold;");
+        lblStatus.setStyle("-fx-text-fill: #22c55e; -fx-font-size: 14px; -fx-font-weight: bold;");
 
         getChildren().add(lblStatus);
 
