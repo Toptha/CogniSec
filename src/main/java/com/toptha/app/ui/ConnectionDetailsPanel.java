@@ -3,7 +3,7 @@ package com.toptha.app.ui;
 import com.toptha.app.engine.firewall.FirewallController;
 import com.toptha.app.model.Connection;
 import com.toptha.app.model.ProcessInfo;
-import com.toptha.app.model.Alert;
+import com.toptha.app.model.SecurityAlert;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -70,9 +70,7 @@ public class ConnectionDetailsPanel extends VBox {
                 btnBlockIp.setText("Blocked");
                 btnBlockIp.setDisable(true);
                 // Fire an alert to provide visual feedback
-                String msg = "Manually blocked IP address: " + currentConn.getDstIp();
-                Alert alert = new Alert(LocalDateTime.now(), "INFO", msg, "Manual Block");
-                Platform.runLater(() -> controller.getAlerts().add(0, alert));
+                triggerManualAlert("Manually blocked IP address: " + currentConn.getDstIp());
             }
         });
 
@@ -84,9 +82,7 @@ public class ConnectionDetailsPanel extends VBox {
                 btnBlockProc.setText("Proc Blocked");
                 btnBlockProc.setDisable(true);
                 // Fire an alert to provide visual feedback
-                String msg = "Manually blocked Process: " + currentConn.getProcess().getExecutablePath();
-                Alert alert = new Alert(LocalDateTime.now(), "INFO", msg, "Manual Block");
-                Platform.runLater(() -> controller.getAlerts().add(0, alert));
+                triggerManualAlert("Manually blocked Process: " + currentConn.getProcess().getExecutablePath());
             }
         });
 
@@ -99,9 +95,7 @@ public class ConnectionDetailsPanel extends VBox {
                 btnSuspendProc.setText("Suspended");
                 btnSuspendProc.setDisable(true);
                 // Fire an alert to provide visual feedback
-                String msg = "Manually suspended Process ID: " + currentConn.getProcess().getPid();
-                Alert alert = new Alert(LocalDateTime.now(), "INFO", msg, "Manual Suspend");
-                Platform.runLater(() -> controller.getAlerts().add(0, alert));
+                triggerManualAlert("Manually suspended Process ID: " + currentConn.getProcess().getPid());
             }
         });
 
@@ -113,9 +107,7 @@ public class ConnectionDetailsPanel extends VBox {
                 btnKillProc.setText("Terminated");
                 btnKillProc.setDisable(true);
                 // Fire an alert to provide visual feedback
-                String msg = "Manually terminated Process ID: " + currentConn.getProcess().getPid();
-                Alert alert = new Alert(LocalDateTime.now(), "INFO", msg, "Manual Kill");
-                Platform.runLater(() -> controller.getAlerts().add(0, alert));
+                triggerManualAlert("Manually terminated Process ID: " + currentConn.getProcess().getPid());
             }
         });
 
@@ -126,6 +118,15 @@ public class ConnectionDetailsPanel extends VBox {
         actions.getChildren().addAll(btnBlockIp, btnBlockProc, btnSuspendProc, btnKillProc);
 
         getChildren().addAll(title, grid, actions);
+    }
+
+    private void triggerManualAlert(String msg) {
+        SecurityAlert alert = new SecurityAlert();
+        alert.setTimestamp(System.currentTimeMillis());
+        alert.setSeverityLevel("INFO");
+        alert.setAlertId(msg);
+        alert.setResolved(true);
+        Platform.runLater(() -> controller.getAlerts().add(0, alert));
     }
 
     private void addDetailRow(GridPane grid, int row, String name, Label valueLabel) {

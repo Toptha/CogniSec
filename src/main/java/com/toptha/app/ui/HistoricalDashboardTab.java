@@ -1,7 +1,7 @@
 package com.toptha.app.ui;
 
 import com.toptha.app.db.DatabaseService;
-import com.toptha.app.model.Alert;
+import com.toptha.app.model.SecurityAlert;
 import com.toptha.app.model.Connection;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -86,12 +86,20 @@ public class HistoricalDashboardTab extends BorderPane {
             }
 
             String msg = "Successfully exported report to Desktop.";
-            Alert alert = new Alert(LocalDateTime.now(), "INFO", msg, "Export CSV");
+            SecurityAlert alert = new SecurityAlert();
+            alert.setTimestamp(System.currentTimeMillis());
+            alert.setSeverityLevel("INFO");
+            alert.setAlertId(msg);
+            alert.setResolved(true);
             Platform.runLater(() -> controller.getAlerts().add(0, alert));
 
         } catch (IOException e) {
             String msg = "Failed to export CSV: " + e.getMessage();
-            Alert alert = new Alert(LocalDateTime.now(), "THREAT", msg, "Export Error");
+            SecurityAlert alert = new SecurityAlert();
+            alert.setTimestamp(System.currentTimeMillis());
+            alert.setSeverityLevel("THREAT");
+            alert.setAlertId(msg);
+            alert.setResolved(false);
             Platform.runLater(() -> controller.getAlerts().add(0, alert));
         }
     }

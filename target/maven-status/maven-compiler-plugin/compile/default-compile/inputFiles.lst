@@ -1,6 +1,7 @@
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\engine\firewall\FirewallController.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\PacketEvent.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\ProcessInfo.java
+C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\SecurityAlert.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\ThreatResult.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\ui\HistoricalDashboardTab.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\App.java
@@ -13,7 +14,6 @@ C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\mai
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\ThreatLevel.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\db\DatabaseService.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\engine\process\ProcessMapper.java
-C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\model\Alert.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\ui\DashboardApp.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\engine\threat\ThreatDetectionEngine.java
 C:\Users\preet\OneDrive\Documents\AntiGravity\Java\RealTimeThreatMonitor\src\main\java\com\toptha\app\ui\AppController.java

@@ -1,6 +1,6 @@
 package com.toptha.app.ui;
 
-import com.toptha.app.model.Alert;
+import com.toptha.app.model.SecurityAlert;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -17,7 +17,7 @@ public class AlertsPanel extends VBox {
     private final VBox alertsBox;
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public AlertsPanel(ObservableList<Alert> alerts) {
+    public AlertsPanel(ObservableList<SecurityAlert> alerts) {
         getStyleClass().add("panel");
         setSpacing(10);
         setPrefHeight(400);
@@ -37,29 +37,33 @@ public class AlertsPanel extends VBox {
 
         getChildren().addAll(title, scrollPane);
 
-        alerts.addListener((ListChangeListener<Alert>) c -> {
+        alerts.addListener((ListChangeListener<SecurityAlert>) c -> {
             while (c.next()) {
                 if (c.wasAdded()) {
-                    for (Alert alert : c.getAddedSubList()) {
+                    for (SecurityAlert alert : c.getAddedSubList()) {
                         addAlert(alert);
                     }
                 }
             }
         });
 
-        for (Alert a : alerts)
+        for (SecurityAlert a : alerts)
             addAlert(a);
     }
 
-    private void addAlert(Alert alert) {
+    private void addAlert(SecurityAlert alert) {
         VBox box = new VBox(2);
         box.getStyleClass().add("alert-box");
 
-        Text timeLbl = new Text(alert.getTimestamp().format(TIME_FORMAT) + " - " + alert.getType());
+        // Convert long millis back to LocalDateTime for UI formatting
+        java.time.LocalDateTime time = java.time.Instant.ofEpochMilli(alert.getTimestamp())
+                .atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
+
+        Text timeLbl = new Text(time.format(TIME_FORMAT) + " - " + alert.getSeverityLevel());
         timeLbl.setStyle(
                 "-fx-fill: #f59e0b; -fx-font-size: 13px; -fx-font-weight: 600; -fx-font-family: 'JetBrains Mono';");
 
-        if ("THREAT".equals(alert.getType())) {
+        if ("THREAT".equals(alert.getSeverityLevel())) {
             box.getStyleClass().add("alert-box-threat");
             timeLbl.setStyle(
                     "-fx-fill: #ef4444; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'JetBrains Mono';");
@@ -85,7 +89,7 @@ public class AlertsPanel extends VBox {
             pulse.play();
         }
 
-        Text msg = new Text(alert.getMessage());
+        Text msg = new Text(alert.getAlertId());
         msg.setStyle("-fx-fill: #d4d4d8; -fx-font-size: 13px; -fx-font-family: 'Inter';");
 
         TextFlow msgFlow = new TextFlow(msg);

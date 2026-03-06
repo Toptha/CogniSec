@@ -22,12 +22,12 @@ public class ConnectionTracker {
     private final ThreatDetectionEngine detectionEngine;
     private final DatabaseService dbProvider;
     private final FirewallController firewall;
-    private final Consumer<Alert> alertListener;
+    private final Consumer<SecurityAlert> alertListener;
 
     public ConnectionTracker(ObservableList<Connection> uiList, ProcessMapper processMapper,
             ThreatIntelService intelService, ThreatDetectionEngine detectionEngine,
             DatabaseService dbProvider, FirewallController firewall,
-            Consumer<Alert> alertListener) {
+            Consumer<SecurityAlert> alertListener) {
         this.uiList = uiList;
         this.processMapper = processMapper;
         this.intelService = intelService;
@@ -117,7 +117,12 @@ public class ConnectionTracker {
     private void triggerAlert(Connection conn, String reason) {
         String msg = String.format("Threat detected on %s:%d -> %s. Reason: %s", conn.getProtocol(), conn.getDstPort(),
                 conn.getDstIp(), reason);
-        Alert alert = new Alert(LocalDateTime.now(), "THREAT", msg, "None");
+
+        SecurityAlert alert = new SecurityAlert();
+        alert.setTimestamp(System.currentTimeMillis());
+        alert.setSeverityLevel("THREAT");
+        alert.setAlertId(msg);
+        alert.setResolved(false);
 
         if (alertListener != null) {
             Platform.runLater(() -> alertListener.accept(alert));

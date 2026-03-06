@@ -7,7 +7,7 @@ import com.toptha.app.engine.firewall.FirewallController;
 import com.toptha.app.engine.process.ProcessMapper;
 import com.toptha.app.engine.threat.ThreatDetectionEngine;
 import com.toptha.app.engine.threat.ThreatIntelService;
-import com.toptha.app.model.Alert;
+import com.toptha.app.model.SecurityAlert;
 import com.toptha.app.model.Connection;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class AppController {
 
     private final ObservableList<Connection> connections = FXCollections.observableArrayList();
-    private final ObservableList<Alert> alerts = FXCollections.observableArrayList();
+    private final ObservableList<SecurityAlert> alerts = FXCollections.observableArrayList();
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private PacketCaptureService captureService;
@@ -38,7 +38,7 @@ public class AppController {
         intelService = new ThreatIntelService();
         ThreatDetectionEngine engine = new ThreatDetectionEngine(intelService);
 
-        Consumer<Alert> alertHandler = alert -> Platform.runLater(() -> alerts.add(0, alert));
+        Consumer<SecurityAlert> alertHandler = alert -> Platform.runLater(() -> alerts.add(0, alert));
 
         ConnectionTracker tracker = new ConnectionTracker(connections, mapper, intelService, engine, dbService,
                 firewall,
@@ -59,7 +59,7 @@ public class AppController {
         return connections;
     }
 
-    public ObservableList<Alert> getAlerts() {
+    public ObservableList<SecurityAlert> getAlerts() {
         return alerts;
     }
 

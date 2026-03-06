@@ -1,7 +1,7 @@
 package com.toptha.app.db;
 
-import com.toptha.app.model.Alert;
 import com.toptha.app.model.Connection;
+import com.toptha.app.model.SecurityAlert;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -100,20 +100,23 @@ public class DatabaseService {
         }
     }
 
-    public synchronized void insertAlert(Alert a) {
+    public synchronized void insertAlert(SecurityAlert a) {
         if (conn == null)
             return;
         String sql = "INSERT INTO alerts (timestamp, type, message, action_taken) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setTimestamp(1, Timestamp.valueOf(a.getTimestamp()));
-            pstmt.setString(2, a.getType());
-            pstmt.setString(3, a.getMessage());
-            pstmt.setString(4, a.getActionTaken());
+            pstmt.setTimestamp(1, Timestamp.valueOf(java.time.Instant.ofEpochMilli(a.getTimestamp())
+                    .atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()));
+            pstmt.setString(2, a.getSeverityLevel());
+            pstmt.setString(3, a.getAlertId());
+            pstmt.setString(4, a.isResolved() ? "Resolved" : "Active");
             pstmt.executeUpdate();
 
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    a.setId(generatedKeys.getLong(1));
+                    // ID generation logic is preserved if we add an ID to the bean, but let's
+                    // ignore it for now since SecurityAlert doesn't have an internal DB `id` field
+                    // mapped (alertId is different)
                 }
             }
         } catch (SQLException e) {
